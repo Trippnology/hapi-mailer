@@ -10,11 +10,11 @@ const Sinon = require('sinon');
 const Vision = require('vision');
 
 // Test shortcuts
-const lab = exports.lab = Lab.script();
+const lab = (exports.lab = Lab.script());
 const expect = Lab.assertions.expect;
 
 lab.describe('Mailer', () => {
-  lab.it('sends the email when a view is used', (done) => {
+  lab.it('sends the email when a view is used', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -54,15 +54,17 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
-          expect(res.result.response.toString()).to.contain('<p>HANDLEBARS</p>');
+          expect(res.result.response.toString()).to.contain(
+            '<p>HANDLEBARS</p>'
+          );
 
           done();
         });
@@ -70,7 +72,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('sends the email when content is loaded from file', (done) => {
+  lab.it('sends the email when content is loaded from file', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -99,15 +101,17 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
-          expect(res.result.response.toString()).to.contain('<p>NODEMAILER</p>');
+          expect(res.result.response.toString()).to.contain(
+            '<p>NODEMAILER</p>'
+          );
 
           done();
         });
@@ -115,7 +119,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('sends the email when content is a string', (done) => {
+  lab.it('sends the email when content is a string', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -142,15 +146,17 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
-          expect(res.result.response.toString()).to.contain('<p>NODEMAILER</p>');
+          expect(res.result.response.toString()).to.contain(
+            '<p>NODEMAILER</p>'
+          );
 
           done();
         });
@@ -158,7 +164,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('throws an error when rendering fails', (done) => {
+  lab.it('throws an error when rendering fails', done => {
     const server = new Hapi.Server({ debug: false });
     server.connection();
 
@@ -198,13 +204,13 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.statusCode).to.equal(500);
           done();
         });
@@ -212,7 +218,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('inlines images when inline option is true', (done) => {
+  lab.it('inlines images when inline option is true', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -249,17 +255,19 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
 
           const response = res.result.response.toString();
-          expect(response).to.match(/<img style="test" src="cid:\w+" width="100%">/);
+          expect(response).to.match(
+            /<img style="test" src="cid:\w+" width="100%">/
+          );
           expect(response).to.match(/Content-Id: <\w+>/);
 
           done();
@@ -268,7 +276,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('does not inline images when inline option is false', (done) => {
+  lab.it('does not inline images when inline option is false', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -298,17 +306,19 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
 
           const response = res.result.response.toString();
-          expect(response).to.match(/<img style=3D"test" src=3D"data:image\/png;base64,[^"]+" width=3D"100%">/);
+          expect(response).to.match(
+            /<img style=3D"test" src=3D"data:image\/png;base64,[^"]+" width=3D"100%">/
+          );
 
           done();
         });
@@ -316,7 +326,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('returns an error when reading of the file fails', (done) => {
+  lab.it('returns an error when reading of the file fails', done => {
     Sinon.stub(Fs, 'readFile', (path, options, callback) => {
       callback(new Error('Failed to read view file: /test'));
     });
@@ -352,13 +362,13 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           Fs.readFile.restore();
 
           expect(res.statusCode).to.equal(500);
@@ -368,7 +378,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('inlines styles when inline option is true', (done) => {
+  lab.it('inlines styles when inline option is true', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -408,18 +418,22 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
 
           const response = res.result.response.toString();
-          expect(response).to.contain('<p style=3D"color: red; =\r\ntext-decoration: underline;">');
-          expect(response).to.contain('<strong style=3D"font-weight: =\r\nbold;">');
+          expect(response).to.contain(
+            '<p style=3D"color: red; text-decoration: underline;">'
+          );
+          expect(response).to.contain(
+            '<strong =\r\nstyle=3D"font-weight: bold;">'
+          );
           expect(response).to.not.contain('<style>');
 
           done();
@@ -428,7 +442,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('does not inline styles when inline option is false', (done) => {
+  lab.it('does not inline styles when inline option is false', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -469,13 +483,13 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
 
           const response = res.result.response.toString();
@@ -488,7 +502,7 @@ lab.describe('Mailer', () => {
     });
   });
 
-  lab.it('does not inline styles when rendering text format', (done) => {
+  lab.it('does not inline styles when rendering text format', done => {
     const server = new Hapi.Server();
     server.connection();
 
@@ -529,13 +543,13 @@ lab.describe('Mailer', () => {
       }
     };
 
-    server.register([HapiMailer, Vision], (err) => {
+    server.register([HapiMailer, Vision], err => {
       expect(err).to.not.exist();
 
-      server.initialize((err) => {
+      server.initialize(err => {
         expect(err).to.not.exist();
 
-        server.inject({ method: 'POST', url: '/' }, (res) => {
+        server.inject({ method: 'POST', url: '/' }, res => {
           expect(res.result).to.be.an.object();
 
           const response = res.result.response.toString();
