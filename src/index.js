@@ -89,8 +89,9 @@ exports.register = function(server, options, next) {
 
     done();
   });
-
-  next();
+  if (typeof next === 'function') {
+    next();
+  }
 };
 
 // Pre hapi v17
