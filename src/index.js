@@ -87,7 +87,9 @@ exports.register = function(server, options, next) {
       );
     });
 
-    done();
+    if (typeof done === 'function') {
+      done();
+    }
   });
   if (typeof next === 'function') {
     next();
