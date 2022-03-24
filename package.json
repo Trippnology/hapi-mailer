@@ -94,7 +94,7 @@
     "lab": "7.3.x",
     "nodemailer-stub-transport": "1.1.0",
     "sinon": "1.17.x",
-    "vision": "4.0.x"
+    "vision": "4.1.1"
   },
   "gitHead": "667fd5b1a709bef6c86f2a52a3b338d7387eae7b",
   "homepage": "https://github.com/trippnology/hapi-mailer",
