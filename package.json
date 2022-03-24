@@ -87,7 +87,7 @@
   },
   "description": "Mailer plugin for hapi.",
   "devDependencies": {
-    "code": "2.0.x",
+    "code": "2.3.0",
     "handlebars": "4.0.12",
     "hapi": "11.1.x",
     "jslint": "0.12.0",
