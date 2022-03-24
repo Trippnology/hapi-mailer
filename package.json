@@ -80,7 +80,7 @@
   "dependencies": {
     "hoek": "5.0.4",
     "items": "2.1.1",
-    "joi": "7.0.x",
+    "joi": "7.3.0",
     "juice": "1.7.x",
     "nodemailer": "1.10.x",
     "nodemailer-plugin-inline-base64": "1.0.x"
