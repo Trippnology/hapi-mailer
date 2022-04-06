@@ -22,7 +22,6 @@
     ]
   ],
   "_from": "git+https://github.com/trippnology/hapi-mailer.git#667fd5b1a709bef6c86f2a52a3b338d7387eae7b",
-  "_id": "@trippnology/hapi-mailer@5.0.1",
   "_inCache": true,
   "_location": "/@trippnology/hapi-mailer",
   "_phantomChildren": {
@@ -121,5 +120,5 @@
   "scripts": {
     "test": "lab --assert code --lint --threshold 100 --verbose"
   },
-  "version": "1.0.5"
+  "version": "1.0.6"
 }
