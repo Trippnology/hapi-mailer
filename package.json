@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "hoek": "5.0.4",
-    "items": "2.1.1",
+    "items": "2.1.2",
     "joi": "7.3.0",
     "juice": "1.7.x",
     "nodemailer": "1.10.x",
