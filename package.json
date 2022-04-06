@@ -22,7 +22,6 @@
     ]
   ],
   "_from": "git+https://github.com/trippnology/hapi-mailer.git#667fd5b1a709bef6c86f2a52a3b338d7387eae7b",
-  "_id": "@trippnology/hapi-mailer@5.0.1",
   "_inCache": true,
   "_location": "/@trippnology/hapi-mailer",
   "_phantomChildren": {
@@ -80,21 +79,21 @@
   "dependencies": {
     "hoek": "5.0.4",
     "items": "2.1.2",
-    "joi": "7.0.x",
+    "joi": "7.3.0",
     "juice": "1.7.x",
     "nodemailer": "1.10.x",
     "nodemailer-plugin-inline-base64": "1.0.x"
   },
   "description": "Mailer plugin for hapi.",
   "devDependencies": {
-    "code": "2.0.x",
-    "handlebars": "4.0.12",
-    "hapi": "11.1.x",
+    "code": "2.3.0",
+    "handlebars": "4.7.7",
+    "hapi": "16.7.0",
     "jslint": "0.12.0",
     "lab": "7.3.x",
     "nodemailer-stub-transport": "1.1.0",
     "sinon": "1.17.x",
-    "vision": "4.0.x"
+    "vision": "4.1.1"
   },
   "gitHead": "667fd5b1a709bef6c86f2a52a3b338d7387eae7b",
   "homepage": "https://github.com/trippnology/hapi-mailer",
@@ -108,7 +107,6 @@
   "license": "MIT",
   "main": "src/index.js",
   "name": "@trippnology/hapi-mailer",
-  "optionalDependencies": {},
   "peerDependencies": {
     "hapi": ">=10.0.0",
     "vision": ">=4.0.0"
@@ -122,5 +120,5 @@
   "scripts": {
     "test": "lab --assert code --lint --threshold 100 --verbose"
   },
-  "version": "1.0.2"
+  "version": "1.0.6"
 }

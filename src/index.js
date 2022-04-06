@@ -30,7 +30,9 @@ internals.schema = Joi.object({
 
 exports.register = function(server, options, next) {
   Joi.assert(options, internals.schema);
-  const config = Hoek.applyToDefaultsWithShallow(internals.defaults, options, ['views']);
+  const config = Hoek.applyToDefaultsWithShallow(internals.defaults, options, [
+    'views'
+  ]);
 
   const transport = Nodemailer.createTransport(config.transport);
 
@@ -44,48 +46,59 @@ exports.register = function(server, options, next) {
     }
 
     server.expose('send', (data, callback) => {
-      Items.parallel(['text', 'html'], (format, cb) => {
-        const path = typeof data[format] === 'object' ? data[format].path : '';
-        const extension = Path.extname(path).substr(1);
+      Items.parallel(
+        ['text', 'html'],
+        (format, cb) => {
+          const path =
+            typeof data[format] === 'object' ? data[format].path : '';
+          const extension = Path.extname(path).substr(1);
 
-        if (config.views.engines.hasOwnProperty(extension)) {
-          server.render(path, data.context, (err, rendered) => {
-            if (err) return cb(err);
+          if (config.views.engines.hasOwnProperty(extension)) {
+            server.render(path, data.context, (err, rendered) => {
+              if (err) return cb(err);
 
-            if (format === 'html' && config.inlineStyles) {
-              data[format] = Juice(rendered); // eslint-disable-line new-cap
-            } else {
-              data[format] = rendered;
+              if (format === 'html' && config.inlineStyles) {
+                data[format] = Juice(rendered); // eslint-disable-line new-cap
+              } else {
+                data[format] = rendered;
+              }
+
+              return cb();
+            });
+          } else {
+            if (typeof data[format] !== 'object') {
+              return cb();
             }
 
-            return cb();
-          });
-        } else {
-          if (typeof data[format] !== 'object') {
-            return cb();
+            Fs.readFile(path, 'utf8', (err, rendered) => {
+              if (err) return cb(err);
+
+              data[format] = rendered;
+              return cb();
+            });
           }
+        },
+        err => {
+          if (err) return callback(err);
 
-          Fs.readFile(path, 'utf8', (err, rendered) => {
-            if (err) return cb(err);
-
-            data[format] = rendered;
-            return cb();
-          });
+          delete data.context;
+          transport.sendMail(data, callback);
         }
-      }, (err) => {
-        if (err) return callback(err);
-
-        delete data.context;
-        transport.sendMail(data, callback);
-      });
+      );
     });
 
-    done();
+    if (typeof done === 'function') {
+      done();
+    }
   });
-
-  next();
+  if (typeof next === 'function') {
+    next();
+  }
 };
 
+// Pre hapi v17
 exports.register.attributes = {
   name: 'hapi-mailer'
 };
+// Post hapi v17
+exports.name = 'hapi-mailer';
