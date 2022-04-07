@@ -81,7 +81,7 @@
     "items": "2.1.2",
     "joi": "7.3.0",
     "juice": "1.7.x",
-    "nodemailer": "1.10.x",
+    "nodemailer": "1.11.0",
     "nodemailer-plugin-inline-base64": "1.0.x"
   },
   "description": "Mailer plugin for hapi.",
